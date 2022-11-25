@@ -1,0 +1,34 @@
+- GROUP_CONCAT() function returns a string with concatenated non-NULL value from a group.
+- self joins to access a table values from same table to use differently. In this case we want managerId as employeeId because manager is also an employee somewhere in table. that's why e.managerId and searching for it in same table as [m.id](http://m.id/)
+
+Ex. Consider you are a manager of someone. Your name will be infront of someone.If you want to check your salary you won't see your name in front of him. you'll look for your name directly in Employee table because you know your Id. but in this case we don't know who is the manager of which employee so that's why we accessing the managerId by e.managerId ( e means employee) and looking for it in same table as [m.id](http://m.id/) ( m means employee as well. for better understanding i'm using m as manager. )I hope you have understood.
+
+```
+SELECT e.name AS Employee FROM Employee e
+JOIN Employee m ON e.managerId = m.id
+WHERE e.salary > m.salary
+```
+
+- Group by ke saath we cannot use where use having
+- Having  ke saath use only aggregate functions
+
+```jsx
+# 1.
+SELECT w2.id from Weather w1,Weather w2
+WHERE datediff(w2.recordDate, w1.recordDate) = 1 AND w2.temperature > w1.temperature;
+// where datediff -> date difference b/w two dates
+# 2.
+SELECT w2.id from Weather w1, Weather w2
+WHERE w2.temperature > w1.temperature AND
+subdate(w2.recordDate, 1) = w1.recordDate;
+// where subdate -> subtract dat
+```
+
+```jsx
+update salary set sex = (case sex
+when 'm' then 'f'
+else 'm'
+end)
+
+// Function is required for swapping
+```
